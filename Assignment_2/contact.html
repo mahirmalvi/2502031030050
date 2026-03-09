@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact Us – EasyMart</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ─ CONTACT LAYOUT ─ */
+.contact-layout { 
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* ─ CONTACT INFO ─ */
+.contact-info { 
+  background: var(--green);
+  border-radius: var(--r);
+  padding: 40px 36px;
+}
+
+.contact-info h2 { 
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.contact-info p { 
+  color: rgba(255,255,255,.7);
+  font-size: 14px;
+  line-height: 1.75;
+  margin-bottom: 32px;
+}
+
+.c-item { 
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.c-icon { 
+  width: 44px;
+  height: 44px;
+  background: rgba(255,255,255,.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  color: var(--green-light);
+  flex-shrink: 0;
+}
+
+.c-item h4 { 
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: rgba(255,255,255,.55);
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.c-item p { 
+  font-size: 14px;
+  color: #fff;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ─ CONTACT FORM ─ */
+.contact-form { 
+  background: #fff;
+  border-radius: var(--r);
+  border: 1.5px solid var(--border);
+  padding: 36px;
+}
+
+.contact-form h2 { 
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--green);
+  margin-bottom: 6px;
+}
+
+.contact-form > p { 
+  color: var(--text-soft);
+  font-size: 13.5px;
+  margin-bottom: 26px;
+}
+
+.form-row { 
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field { 
+  margin-bottom: 18px;
+}
+
+.field.full { 
+  grid-column: 1 / -1;
+}
+
+.field label { 
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  color: var(--text);
+  margin-bottom: 7px;
+}
+
+.field input,
+.field select,
+.field textarea { 
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  color: var(--text);
+  transition: .2s;
+  background: var(--cream);
+  resize: vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus { 
+  border-color: var(--green-light);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(82,183,136,.1);
+}
+
+.field textarea { 
+  min-height: 120px;
+}
+
+.submit-btn { 
+  width: 100%;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.submit-btn:hover { 
+  background: var(--green-mid);
+}
+
+/* ─ FAQ SECTION ─ */
+.faq-sec { 
+  margin-top: 56px;
+}
+
+.faq-sec h2 { 
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--green);
+  margin-bottom: 24px;
+}
+
+.faq-item { 
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.faq-q { 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  cursor: pointer;
+  font-size: 14.5px;
+  font-weight: 600;
+  transition: .15s;
+}
+
+.faq-q:hover { 
+  background: var(--cream);
+}
+
+.faq-q i { 
+  color: var(--green);
+  transition: transform .2s;
+  font-size: 12px;
+}
+
+.faq-a { 
+  display: none;
+  padding: 0 20px 16px;
+  font-size: 14px;
+  color: var(--text-soft);
+  line-height: 1.75;
+}
+
+.faq-item.open .faq-a { 
+  display: block;
+}
+
+.faq-item.open .faq-q i { 
+  transform: rotate(180deg);
+}
+</style>
+</head>
+<body>
+<script src="shared.js"></script>
+
+<div class="inner-wrap">
+  <div class="pg-hdr">
+    <a class="back-btn" href="index.html"><i class="fas fa-arrow-left"></i> Back</a>
+    <h1>Contact Us</h1>
+  </div>
+
+  <div class="contact-layout">
+    <div class="contact-info">
+      <h2>Get in Touch</h2>
+      <p>Have a question, feedback, or just want to say hi? We're here 7 days a week to help.</p>
+      <div class="c-item">
+        <div class="c-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div><h4>Address</h4><p>123 Shopping Street, Market Plaza,<br/>New Delhi – 110001</p></div>
+      </div>
+      <div class="c-item">
+        <div class="c-icon"><i class="fas fa-phone"></i></div>
+        <div><h4>Phone</h4><p>+91 1800 123 4567<br/>(Toll Free, 7am–11pm)</p></div>
+      </div>
+      <div class="c-item">
+        <div class="c-icon"><i class="fas fa-envelope"></i></div>
+        <div><h4>Email</h4><p>hello@easymart.in<br/>support@easymart.in</p></div>
+      </div>
+      <div class="c-item">
+        <div class="c-icon"><i class="fas fa-clock"></i></div>
+        <div><h4>Hours</h4><p>Monday – Sunday<br/>7:00 AM – 11:00 PM</p></div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h2>Send a Message</h2>
+      <p>Fill out the form and we'll get back to you within 24 hours.</p>
+      <div class="form-row">
+        <div class="field"><label>First Name</label><input type="text" id="fName" placeholder="Arjun"/></div>
+        <div class="field"><label>Last Name</label><input type="text" id="lName" placeholder="Sharma"/></div>
+      </div>
+      <div class="field"><label>Email Address</label><input type="email" id="fEmail" placeholder="you@example.com"/></div>
+      <div class="field"><label>Subject</label>
+        <select id="fSubject">
+          <option value="">Select a topic…</option>
+          <option>Order Issue</option>
+          <option>Delivery Problem</option>
+          <option>Product Quality</option>
+          <option>Refund Request</option>
+          <option>Account Help</option>
+          <option>General Feedback</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field"><label>Message</label><textarea id="fMessage" placeholder="Tell us how we can help…"></textarea></div>
+      <button class="submit-btn" onclick="submitForm()"><i class="fas fa-paper-plane"></i> Send Message</button>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-sec">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <div class="faq-q" onclick="toggleFaq(this)">How fast is delivery? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-a">Our average delivery time is under 10 minutes from the time you place your order. We operate dark stores close to residential areas to make this possible.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What is the minimum order value? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-a">There is no minimum order value! However, orders below ₹499 will incur a small delivery fee of ₹49. Orders above ₹499 get free delivery.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Can I return an item? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-a">Yes! We have an easy 24-hour return policy. If you're unhappy with any item, contact us and we'll arrange a pickup and refund within 48 hours.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Which payment methods are accepted? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-a">We accept all major UPI apps (PhonePe, GPay, Paytm), debit and credit cards, net banking, and cash on delivery.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Is the app available on iOS and Android? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-a">Yes! EasyMart is available on both the App Store and Google Play. You can also shop directly from our website.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => { injectShell(); });
+
+function submitForm() {
+  const name = document.getElementById('fName').value.trim();
+  const email = document.getElementById('fEmail').value.trim();
+  const msg = document.getElementById('fMessage').value.trim();
+  if (!name || !email || !msg) { showToast('Please fill in all required fields'); return; }
+  showToast(`✓ Message sent! We'll reply to ${email} soon.`);
+  document.getElementById('fName').value = '';
+  document.getElementById('lName').value = '';
+  document.getElementById('fEmail').value = '';
+  document.getElementById('fMessage').value = '';
+  document.getElementById('fSubject').value = '';
+}
+
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+</script>
+</body>
+</html>

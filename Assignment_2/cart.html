@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cart – EasyMart</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ─ CART LAYOUT ─ */
+.cart-layout { 
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ─ CART ITEM ─ */
+.cart-item { 
+  background: #fff;
+  border-radius: var(--r);
+  border: 1.5px solid var(--border);
+  padding: 18px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 12px;
+  transition: .2s;
+}
+
+.cart-item:hover { 
+  box-shadow: var(--shadow);
+}
+
+.ci-img { 
+  width: 76px;
+  height: 76px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: var(--cream2);
+  flex-shrink: 0;
+}
+
+.ci-info { 
+  flex: 1;
+}
+
+.ci-brand { 
+  font-size: 10px;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  margin-bottom: 2px;
+}
+
+.ci-name { 
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.ci-price-row { 
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.ci-price { 
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.ci-orig { 
+  font-size: 12px;
+  color: var(--text-soft);
+  text-decoration: line-through;
+}
+
+.ci-disc { 
+  background: #fef0ec;
+  color: var(--terra);
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+/* ─ QUANTITY ─ */
+.qty-row { 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.q-btn { 
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .15s;
+}
+
+.q-btn:hover { 
+  border-color: var(--green-light);
+  background: var(--cream2);
+  color: var(--green);
+}
+
+.q-num { 
+  font-size: 15px;
+  font-weight: 800;
+  min-width: 22px;
+  text-align: center;
+}
+
+.ci-remove { 
+  background: none;
+  border: none;
+  color: var(--terra);
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  transition: .15s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ci-remove:hover { 
+  background: #fdf0ec;
+}
+
+/* ─ ORDER BOX ─ */
+.order-box { 
+  background: #fff;
+  border-radius: var(--r);
+  border: 1.5px solid var(--border);
+  padding: 24px;
+  position: sticky;
+  top: 100px;
+}
+
+.order-box h3 { 
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--green);
+  margin-bottom: 18px;
+}
+
+/* ─ COUPON ─ */
+.coupon-row { 
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.coupon-row input { 
+  flex: 1;
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: .2s;
+}
+
+.coupon-row input:focus { 
+  border-color: var(--green-light);
+}
+
+.coupon-row button { 
+  background: var(--cream2);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  padding: 9px 16px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: .2s;
+}
+
+.coupon-row button:hover { 
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+}
+
+/* ─ SUMMARY ─ */
+.sum-row { 
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  margin-bottom: 11px;
+  color: var(--text-soft);
+}
+
+.sum-row.save { 
+  color: var(--green-mid);
+  font-weight: 700;
+}
+
+.sum-div { 
+  border: none;
+  border-top: 1.5px dashed var(--border);
+  margin: 14px 0;
+}
+
+.sum-total { 
+  display: flex;
+  justify-content: space-between;
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+/* ─ BUTTONS ─ */
+.checkout-btn { 
+  width: 100%;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: .2s;
+  margin-bottom: 10px;
+}
+
+.checkout-btn:hover { 
+  background: var(--green-mid);
+}
+
+.cont-btn { 
+  width: 100%;
+  background: none;
+  border: 1.5px solid var(--border);
+  padding: 12px;
+  border-radius: 50px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  transition: .2s;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+
+.cont-btn:hover { 
+  border-color: var(--green-light);
+  color: var(--green);
+}
+
+/* ─ FREE DELIVERY BAR ─ */
+.free-del-bar { 
+  background: var(--green-pale);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  color: var(--green);
+  margin-bottom: 14px;
+}
+
+.free-del-progress { 
+  width: 100%;
+  height: 4px;
+  background: #d8f3dc;
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.free-del-fill { 
+  height: 100%;
+  background: var(--green-mid);
+  border-radius: 2px;
+  transition: width .4s;
+}
+</style>
+</head>
+<body>
+<script src="shared.js"></script>
+
+<div class="inner-wrap">
+  <div class="pg-hdr">
+    <a class="back-btn" href="index.html"><i class="fas fa-arrow-left"></i> Back</a>
+    <h1 id="cartTitle">Shopping Cart</h1>
+  </div>
+
+  <div class="cart-layout">
+    <div id="cartItems"></div>
+    <div id="orderSummary"></div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  injectShell();
+  renderCart();
+});
+
+function renderCart() {
+  const cart = getCart();
+  const itemsEl = document.getElementById('cartItems');
+  const sumEl = document.getElementById('orderSummary');
+
+  if (!cart.length) {
+    document.getElementById('cartTitle').textContent = 'Shopping Cart';
+    itemsEl.innerHTML = `
+      <div class="empty-state">
+        <i class="fas fa-shopping-cart"></i>
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added anything yet.</p>
+        <a class="empty-cta" href="products.html">Start Shopping</a>
+      </div>`;
+    sumEl.innerHTML = '';
+    return;
+  }
+
+  const total = cart.reduce((s, i) => s + i.qty, 0);
+  document.getElementById('cartTitle').textContent = `Shopping Cart (${total} item${total > 1 ? 's' : ''})`;
+
+  itemsEl.innerHTML = cart.map(item => `
+    <div class="cart-item" id="ci${item.id}">
+      <img class="ci-img" src="${item.img}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?w=200&q=80'"/>
+      <div class="ci-info">
+        <div class="ci-brand">${item.brand}</div>
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-price-row">
+          <span class="ci-price">₹${item.price}</span>
+          ${item.was ? `<span class="ci-orig">₹${item.was}</span>` : ''}
+          ${item.disc ? `<span class="ci-disc">${item.disc}% OFF</span>` : ''}
+        </div>
+        <div class="qty-row">
+          <button class="q-btn" onclick="changeQty(${item.id}, -1)">−</button>
+          <span class="q-num" id="qty${item.id}">${item.qty}</span>
+          <button class="q-btn" onclick="changeQty(${item.id}, 1)">+</button>
+        </div>
+      </div>
+      <button class="ci-remove" onclick="removeItem(${item.id})"><i class="fas fa-trash"></i> Remove</button>
+    </div>
+  `).join('');
+
+  const sub = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const orig = cart.reduce((s, i) => s + (i.was || i.price) * i.qty, 0);
+  const saved = orig - sub;
+  const deliveryFree = sub >= 499;
+  const delivery = deliveryFree ? 0 : 49;
+  const finalTotal = sub + delivery;
+  const pct = Math.min(100, Math.round((sub / 499) * 100));
+
+  sumEl.innerHTML = `
+    <div class="order-box">
+      <h3>Order Summary</h3>
+      <div class="coupon-row">
+        <input type="text" id="couponInput" placeholder="Enter coupon code"/>
+        <button onclick="applyCoupon()">Apply</button>
+      </div>
+      ${!deliveryFree ? `
+      <div class="free-del-bar">
+        Add <strong>₹${499 - sub}</strong> more for FREE delivery!
+        <div class="free-del-progress"><div class="free-del-fill" style="width:${pct}%"></div></div>
+      </div>` : `<div class="free-del-bar" style="color:var(--green-mid)">🎉 You've unlocked FREE delivery!</div>`}
+      <div class="sum-row"><span>Subtotal (${total} item${total > 1 ? 's' : ''})</span><span>₹${sub}</span></div>
+      <div class="sum-row"><span>Delivery Fee</span><span style="${deliveryFree ? 'color:var(--green-mid);font-weight:700' : ''}">${deliveryFree ? 'FREE' : '₹' + delivery}</span></div>
+      ${saved > 0 ? `<div class="sum-row save"><span>You Save</span><span>−₹${saved}</span></div>` : ''}
+      <hr class="sum-div"/>
+      <div class="sum-total"><span>Total</span><span>₹${finalTotal}</span></div>
+      <button class="checkout-btn" onclick="checkout()"><i class="fas fa-lock"></i> Proceed to Checkout</button>
+      <a class="cont-btn" href="products.html">Continue Shopping</a>
+    </div>
+  `;
+}
+
+function changeQty(id, d) {
+  const cart = getCart();
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty = Math.max(1, item.qty + d);
+  saveCart(cart);
+  updateCartBadge();
+  renderCart();
+}
+
+function removeItem(id) {
+  let cart = getCart();
+  cart = cart.filter(i => i.id !== id);
+  saveCart(cart);
+  updateCartBadge();
+  renderCart();
+  showToast('Item removed from cart');
+}
+
+function applyCoupon() {
+  const val = (document.getElementById('couponInput').value || '').trim().toUpperCase();
+  if (val === 'FIRST50') showToast('🎉 50% off applied!');
+  else if (val === 'SAVE20') showToast('✓ 20% off applied!');
+  else showToast('Invalid code. Try FIRST50');
+}
+
+function checkout() {
+  const user = getUser();
+  if (!user) { showToast('Please login to checkout!'); openOverlay('loginModal'); return; }
+  saveCart([]);
+  updateCartBadge();
+  showToast('🎉 Order placed! Delivering in 10 minutes');
+  setTimeout(() => { window.location = 'index.html'; }, 1200);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Products – EasyMart</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ─ PRODUCTS LAYOUT ─ */
+.products-layout { 
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ─ SIDEBAR ─ */
+.sidebar { 
+  background: #fff;
+  border-radius: var(--r);
+  border: 1.5px solid var(--border);
+  padding: 24px;
+  position: sticky;
+  top: 100px;
+}
+
+.sidebar h3 { 
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--green);
+  margin-bottom: 16px;
+}
+
+.sidebar-cat { 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: .15s;
+  color: var(--text);
+  text-decoration: none;
+  margin-bottom: 4px;
+}
+
+.sidebar-cat:hover,
+.sidebar-cat.active { 
+  background: var(--green-pale);
+  color: var(--green);
+  font-weight: 700;
+}
+
+.sidebar-cat .cat-emoji { 
+  font-size: 17px;
+}
+
+/* ─ SORT ─ */
+.sort-row { 
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.sort-label { 
+  font-size: 13px;
+  color: var(--text-soft);
+  font-weight: 500;
+}
+
+.sort-btn { 
+  padding: 7px 15px;
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  transition: .15s;
+}
+
+.sort-btn:hover,
+.sort-btn.active { 
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+}
+
+/* ─ RESULTS INFO ─ */
+.results-info { 
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-bottom: 20px;
+}
+
+.results-info strong { 
+  color: var(--text);
+}
+
+/* ─ NO RESULTS ─ */
+.no-results { 
+  text-align: center;
+  padding: 60px;
+  color: var(--text-soft);
+}
+
+.no-results i { 
+  font-size: 44px;
+  color: #ddd;
+  display: block;
+  margin-bottom: 14px;
+}
+</style>
+</head>
+<body>
+<script src="shared.js"></script>
+
+<div class="inner-wrap">
+  <div class="pg-hdr">
+    <a class="back-btn" href="index.html"><i class="fas fa-arrow-left"></i> Back</a>
+    <h1 id="pageTitle">All Products</h1>
+  </div>
+
+  <div class="products-layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h3>Categories</h3>
+      <a class="sidebar-cat" href="products.html" id="cat-all"><span class="cat-emoji">🛒</span> All Products</a>
+      <div id="sidebarCats"></div>
+    </div>
+
+    <!-- MAIN -->
+    <div>
+      <div class="sort-row">
+        <span class="sort-label">Sort by:</span>
+        <button class="sort-btn active" onclick="setSort('default', this)">Default</button>
+        <button class="sort-btn" onclick="setSort('price_asc', this)">Price: Low to High</button>
+        <button class="sort-btn" onclick="setSort('price_desc', this)">Price: High to Low</button>
+        <button class="sort-btn" onclick="setSort('rating', this)">Top Rated</button>
+      </div>
+      <div class="results-info" id="resultsInfo"></div>
+      <div class="prods-grid" id="productsGrid"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentCat = null;
+let currentSort = 'default';
+let currentQ = '';
+
+document.addEventListener('DOMContentLoaded', () => {
+  injectShell();
+
+  // Sidebar
+  document.getElementById('sidebarCats').innerHTML = CATS.map(c =>
+    `<a class="sidebar-cat" href="products.html?cat=${c.id}" id="cat-${c.id}"><span class="cat-emoji">${c.emoji}</span> ${c.label}</a>`
+  ).join('');
+
+  // Parse URL params
+  const params = new URLSearchParams(window.location.search);
+  currentCat = params.get('cat') || null;
+  currentQ = params.get('q') || '';
+
+  if (currentQ) {
+    document.getElementById('pageTitle').textContent = `🔍 "${currentQ}"`;
+    if (document.getElementById('searchInput')) document.getElementById('searchInput').value = currentQ;
+  } else if (currentCat) {
+    const c = CATS.find(x => x.id === currentCat);
+    document.getElementById('pageTitle').textContent = c ? `${c.emoji} ${c.label}` : currentCat;
+    const activeEl = document.getElementById(`cat-${currentCat}`);
+    if (activeEl) activeEl.classList.add('active');
+  } else {
+    document.getElementById('cat-all').classList.add('active');
+  }
+
+  renderProducts();
+});
+
+function setSort(type, btn) {
+  currentSort = type;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts();
+}
+
+function renderProducts() {
+  let list = [...PRODUCTS];
+
+  if (currentQ) {
+    const q = currentQ.toLowerCase();
+    list = list.filter(p => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q));
+  } else if (currentCat) {
+    list = list.filter(p => p.cat === currentCat);
+  }
+
+  if (currentSort === 'price_asc') list.sort((a, b) => a.price - b.price);
+  else if (currentSort === 'price_desc') list.sort((a, b) => b.price - a.price);
+  else if (currentSort === 'rating') list.sort((a, b) => b.rating - a.rating);
+
+  const grid = document.getElementById('productsGrid');
+  const info = document.getElementById('resultsInfo');
+  info.innerHTML = `Showing <strong>${list.length}</strong> product${list.length !== 1 ? 's' : ''}`;
+
+  if (!list.length) {
+    grid.innerHTML = `<div class="no-results" style="grid-column:1/-1"><i class="fas fa-search"></i><p>No products found${currentQ ? ` for "${currentQ}"` : ''}.</p><a class="empty-cta" href="products.html">View All</a></div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(p => cardHTML(p)).join('');
+}
+</script>
+</body>
+</html>

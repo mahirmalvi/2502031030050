@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Product – EasyMart</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ─ PRODUCT DETAIL GRID ─ */
+.detail-grid { 
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 52px;
+  align-items: start;
+}
+
+/* ─ PRODUCT IMAGES ─ */
+.pd-img-main { 
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--r);
+  background: var(--cream2);
+  display: block;
+}
+
+.pd-thumbs { 
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.pd-thumb { 
+  width: 68px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: .2s;
+}
+
+.pd-thumb.on,
+.pd-thumb:hover { 
+  border-color: var(--green-light);
+}
+
+/* ─ PRODUCT INFO ─ */
+.pd-brand { 
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: var(--text-soft);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.pd-name { 
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.pd-rating-row { 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+/* ─ PRICE ─ */
+.pd-price-row { 
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.pd-price-now { 
+  font-family: 'Syne', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.pd-price-was { 
+  font-size: 16px;
+  color: var(--text-soft);
+  text-decoration: line-through;
+}
+
+.pd-disc { 
+  background: #fdf0ec;
+  color: var(--terra);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* ─ DESCRIPTION ─ */
+.pd-desc { 
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--text-soft);
+  margin-bottom: 24px;
+}
+
+/* ─ QUANTITY ─ */
+.pd-qty-row { 
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.pd-qty-row span { 
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.qty-ctrl { 
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--cream2);
+  border-radius: 50px;
+  padding: 4px;
+}
+
+.q-btn { 
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .15s;
+  box-shadow: 0 1px 4px rgba(0,0,0,.1);
+}
+
+.q-btn:hover { 
+  background: var(--green);
+  color: #fff;
+}
+
+.q-num { 
+  font-size: 15px;
+  font-weight: 800;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* ─ ACTION BUTTONS ─ */
+.pd-actions { 
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.add-to-cart-lg { 
+  flex: 1;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 50px;
+  font-size: 14.5px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.add-to-cart-lg:hover { 
+  background: var(--green-mid);
+}
+
+.add-to-cart-lg:disabled { 
+  background: #d1d5db;
+  cursor: not-allowed;
+}
+
+.wish-btn { 
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--text-soft);
+  transition: .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wish-btn:hover,
+.wish-btn.on { 
+  color: var(--terra);
+  border-color: var(--terra);
+}
+
+/* ─ FEATURES ─ */
+.pd-features { 
+  padding-top: 22px;
+  border-top: 1.5px solid var(--border);
+}
+
+.feat-row { 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--text-soft);
+  margin-bottom: 10px;
+}
+
+.feat-row i { 
+  color: var(--green-light);
+  width: 16px;
+}
+
+/* ─ RELATED PRODUCTS ─ */
+.related-sec { 
+  margin-top: 64px;
+}
+</style>
+</head>
+<body>
+<script src="shared.js"></script>
+
+<div class="inner-wrap">
+  <div class="pg-hdr">
+    <a class="back-btn" id="backBtn" href="products.html"><i class="fas fa-arrow-left"></i> Back</a>
+    <h1 id="pageTitle">Product Detail</h1>
+  </div>
+
+  <div class="detail-grid" id="detailGrid"></div>
+
+  <div class="related-sec">
+    <div class="sec-hdr"><div><h2>You may also like</h2></div></div>
+    <div class="prods-grid" id="relatedGrid"></div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  injectShell();
+
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get('id'));
+  const p = PRODUCTS.find(x => x.id === id);
+
+  if (!p) {
+    document.getElementById('detailGrid').innerHTML = `<div style="padding:60px;text-align:center;color:var(--text-soft)"><i class="fas fa-box-open" style="font-size:48px;color:#ddd;display:block;margin-bottom:14px"></i><p>Product not found. <a href="products.html">Browse products</a></p></div>`;
+    return;
+  }
+
+  document.title = `${p.name} – EasyMart`;
+  document.getElementById('pageTitle').textContent = p.name;
+
+  const wish = getWish();
+  const wished = wish.includes(p.id);
+
+  document.getElementById('detailGrid').innerHTML = `
+    <div>
+      <img class="pd-img-main" id="mainImg" src="${p.img}" alt="${p.name}" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=80'"/>
+      <div class="pd-thumbs">
+        <img class="pd-thumb on" src="${p.img}" onclick="setMainImg(this)"/>
+      </div>
+    </div>
+    <div>
+      <div class="pd-brand">${p.brand}</div>
+      <div class="pd-name">${p.name}</div>
+      <div class="pd-rating-row">
+        <span class="r-chip" style="padding:3px 10px;font-size:13px"><i class="fas fa-star"></i> ${p.rating}</span>
+        <span style="font-size:13px;color:var(--text-soft)">(${p.reviews} reviews)</span>
+      </div>
+      <div class="pd-price-row">
+        <span class="pd-price-now">₹${p.price}</span>
+        ${p.was ? `<span class="pd-price-was">₹${p.was}</span>` : ''}
+        ${p.disc ? `<span class="pd-disc">${p.disc}% OFF</span>` : ''}
+      </div>
+      <p class="pd-desc">${p.desc}</p>
+      <div class="pd-qty-row">
+        <span>Quantity</span>
+        <div class="qty-ctrl">
+          <button class="q-btn" onclick="changeQty(-1)">−</button>
+          <span class="q-num" id="pdQty">1</span>
+          <button class="q-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+      <div class="pd-actions">
+        <button class="add-to-cart-lg" onclick="addMultiple(${p.id})" ${!p.stock ? 'disabled' : ''}>
+          <i class="fas fa-shopping-cart"></i> ${p.stock ? 'Add to Cart' : 'Out of Stock'}
+        </button>
+        <button class="wish-btn ${wished ? 'on' : ''}" id="wishBtn" onclick="toggleWish(${p.id}, this)">
+          <i class="fas fa-heart"></i>
+        </button>
+      </div>
+      <div class="pd-features">
+        <div class="feat-row"><i class="fas fa-bolt"></i> Delivered in 10 minutes</div>
+        <div class="feat-row"><i class="fas fa-shield-alt"></i> 100% quality guaranteed</div>
+        <div class="feat-row"><i class="fas fa-undo"></i> Easy returns within 24 hours</div>
+        <div class="feat-row"><i class="fas fa-leaf"></i> Fresh from the source</div>
+      </div>
+    </div>
+  `;
+
+  // Related products
+  const related = PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id).slice(0, 6);
+  document.getElementById('relatedGrid').innerHTML = related.length
+    ? related.map(x => cardHTML(x)).join('')
+    : '<p style="color:var(--text-soft);font-size:14px">No related products found.</p>';
+});
+
+function setMainImg(el) {
+  document.getElementById('mainImg').src = el.src;
+  document.querySelectorAll('.pd-thumb').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function changeQty(d) {
+  const el = document.getElementById('pdQty');
+  let v = parseInt(el.textContent) + d;
+  if (v < 1) v = 1;
+  el.textContent = v;
+}
+
+function addMultiple(id) {
+  const qty = parseInt(document.getElementById('pdQty').textContent);
+  const p = PRODUCTS.find(x => x.id === id);
+  const cart = getCart();
+  const ex = cart.find(i => i.id === id);
+  if (ex) ex.qty += qty;
+  else cart.push({ id: p.id, name: p.name, brand: p.brand, price: p.price, was: p.was, disc: p.disc, img: p.img, qty });
+  saveCart(cart);
+  updateCartBadge();
+  showToast(`✓ ${qty}× ${p.name} added to cart!`);
+}
+</script>
+</body>
+</html>

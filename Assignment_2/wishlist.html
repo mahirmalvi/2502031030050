@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Wishlist – EasyMart</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ─ WISHLIST ACTIONS ─ */
+.wish-actions { 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.wish-count { 
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+/* ─ ADD ALL TO CART BUTTON ─ */
+.add-all-btn { 
+  background: var(--green);
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: .2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.add-all-btn:hover { 
+  background: var(--green-mid);
+}
+</style>
+</head>
+<body>
+<script src="shared.js"></script>
+
+<div class="inner-wrap">
+  <div class="pg-hdr">
+    <a class="back-btn" href="index.html"><i class="fas fa-arrow-left"></i> Back</a>
+    <h1>My Wishlist</h1>
+  </div>
+
+  <div class="wish-actions" id="wishActions" style="display:none">
+    <span class="wish-count" id="wishCount"></span>
+    <button class="add-all-btn" onclick="addAllToCart()"><i class="fas fa-shopping-cart"></i> Add All to Cart</button>
+  </div>
+
+  <div class="prods-grid" id="wishGrid"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  injectShell();
+  renderWishlist();
+});
+
+function renderWishlist() {
+  const ids = getWish();
+  const items = PRODUCTS.filter(p => ids.includes(p.id));
+  const grid = document.getElementById('wishGrid');
+  const actions = document.getElementById('wishActions');
+
+  if (!items.length) {
+    actions.style.display = 'none';
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1">
+        <i class="fas fa-heart"></i>
+        <h3>Your wishlist is empty</h3>
+        <p>Save items you love to see them here.</p>
+        <a class="empty-cta" href="products.html">Start Exploring</a>
+      </div>`;
+    return;
+  }
+
+  actions.style.display = 'flex';
+  document.getElementById('wishCount').textContent = `${items.length} item${items.length > 1 ? 's' : ''}`;
+  grid.innerHTML = items.map(p => cardHTML(p)).join('');
+}
+
+function addAllToCart() {
+  const ids = getWish();
+  const items = PRODUCTS.filter(p => ids.includes(p.id) && p.stock);
+  if (!items.length) { showToast('No in-stock items to add!'); return; }
+  const cart = getCart();
+  items.forEach(p => {
+    const ex = cart.find(i => i.id === p.id);
+    if (ex) ex.qty++;
+    else cart.push({ id: p.id, name: p.name, brand: p.brand, price: p.price, was: p.was, disc: p.disc, img: p.img, qty: 1 });
+  });
+  saveCart(cart);
+  updateCartBadge();
+  showToast(`✓ ${items.length} items added to cart!`);
+}
+
+// Override toggleWish to also re-render after change
+const _orig = toggleWish;
+window.toggleWish = function(id, btn) {
+  _orig(id, btn);
+  renderWishlist();
+};
+</script>
+</body>
+</html>

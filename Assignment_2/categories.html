@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Categories – EasyMart</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ─ CATEGORIES GRID ─ */
+.cats-page-grid { 
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+/* ─ CATEGORY CARD ─ */
+.cat-card { 
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 30px 20px 24px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+  transition: .25s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.cat-card:hover { 
+  border-color: var(--green-light);
+  background: var(--green-pale);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.cat-card .cat-emoji { 
+  font-size: 40px;
+  line-height: 1;
+}
+
+.cat-card h3 { 
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--green);
+}
+
+.cat-card p { 
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.cat-count { 
+  background: var(--green-pale);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 50px;
+}
+
+/* ─ PAGE INTRO ─ */
+.page-intro { 
+  background: var(--green);
+  border-radius: var(--r);
+  padding: 40px 48px;
+  margin-bottom: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-intro h2 { 
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.page-intro p { 
+  color: rgba(255,255,255,.7);
+  font-size: 14px;
+}
+
+.page-intro .big-emoji { 
+  font-size: 64px;
+  line-height: 1;
+}
+</style>
+</head>
+<body>
+<script src="shared.js"></script>
+
+<div class="inner-wrap">
+  <div class="pg-hdr">
+    <a class="back-btn" href="index.html"><i class="fas fa-arrow-left"></i> Back</a>
+    <h1>All Categories</h1>
+  </div>
+
+  <div class="page-intro">
+    <div>
+      <h2>What are you looking for?</h2>
+      <p>Browse all 22 categories — from fresh produce to household essentials</p>
+    </div>
+    <div class="big-emoji">🛒</div>
+  </div>
+
+  <div class="cats-page-grid" id="catsPageGrid"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  injectShell();
+
+  const ALL_CATS = [
+    {id:'Fruits',label:'Fruits',emoji:'🍎',desc:'Fresh seasonal fruits'},
+    {id:'Vegetables',label:'Vegetables',emoji:'🥕',desc:'Farm-fresh veggies'},
+    {id:'Dairy',label:'Dairy Products',emoji:'🥛',desc:'Milk, paneer, butter'},
+    {id:'Bakery',label:'Bakery',emoji:'🍞',desc:'Bread, pastries, cakes'},
+    {id:'Snacks',label:'Snacks',emoji:'🍿',desc:'Namkeen, chips, biscuits'},
+    {id:'Beverages',label:'Beverages',emoji:'🥤',desc:'Juices, soft drinks, water'},
+    {id:'Frozen',label:'Frozen Foods',emoji:'🧊',desc:'Ready-frozen meals'},
+    {id:'Breakfast',label:'Breakfast',emoji:'🥞',desc:'Cereals, poha, upma'},
+    {id:'Instant',label:'Instant Food',emoji:'🍜',desc:'Noodles, instant mixes'},
+    {id:'Sweets',label:'Sweets & Mithai',emoji:'🍬',desc:'Ladoo, barfi, halwa'},
+    {id:'IceCream',label:'Ice Cream',emoji:'🍦',desc:'Cups, cones, sticks'},
+    {id:'Household',label:'Household Items',emoji:'🏠',desc:'Home essentials'},
+    {id:'Cleaning',label:'Cleaning Supplies',emoji:'🧹',desc:'Detergents, mops'},
+    {id:'Personal',label:'Personal Care',emoji:'🧴',desc:'Shampoo, soap, lotion'},
+    {id:'Baby',label:'Baby Products',emoji:'👶',desc:'Diapers, formula, food'},
+    {id:'Pet',label:'Pet Food',emoji:'🐾',desc:'Dog, cat, bird food'},
+    {id:'Stationery',label:'Stationery',emoji:'✏️',desc:'Pens, notebooks, files'},
+    {id:'Electronics',label:'Electronics',emoji:'📱',desc:'Cables, batteries, bulbs'},
+    {id:'Kitchen',label:'Kitchen Essentials',emoji:'🍳',desc:'Spices, oils, condiments'},
+    {id:'Health',label:'Health & Wellness',emoji:'💊',desc:'Vitamins, supplements'},
+    {id:'Organic',label:'Organic Foods',emoji:'🌿',desc:'100% organic range'},
+    {id:'Ready',label:'Ready to Eat',emoji:'🥡',desc:'Cooked meals, salads'},
+  ];
+
+  document.getElementById('catsPageGrid').innerHTML = ALL_CATS.map(c => {
+    const count = PRODUCTS.filter(p => p.cat === c.id).length;
+    return `
+    <a class="cat-card" href="products.html?cat=${c.id}">
+      <div class="cat-emoji">${c.emoji}</div>
+      <h3>${c.label}</h3>
+      <p>${c.desc}</p>
+      ${count > 0 ? `<span class="cat-count">${count} items</span>` : ''}
+    </a>`;
+  }).join('');
+});
+</script>
+</body>
+</html>

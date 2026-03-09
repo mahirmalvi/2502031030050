@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Profile – EasyMart</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ─ PROFILE LAYOUT ─ */
+.profile-layout { 
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ─ SIDEBAR ─ */
+.profile-sidebar { 
+  background: #fff;
+  border-radius: var(--r);
+  border: 1.5px solid var(--border);
+  padding: 28px;
+  text-align: center;
+  position: sticky;
+  top: 100px;
+}
+
+.p-avatar { 
+  width: 72px;
+  height: 72px;
+  background: var(--green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 auto 12px;
+}
+
+.profile-sidebar h3 { 
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.profile-sidebar small { 
+  font-size: 12.5px;
+  color: var(--text-soft);
+}
+
+/* ─ NAVIGATION ─ */
+.p-nav { 
+  margin-top: 20px;
+  text-align: left;
+}
+
+.p-nav-btn { 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 13px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: .15s;
+  color: var(--text);
+  background: none;
+  border: none;
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+  margin-bottom: 3px;
+}
+
+.p-nav-btn:hover { 
+  background: var(--cream2);
+  color: var(--green);
+}
+
+.p-nav-btn.active { 
+  background: var(--green-pale);
+  color: var(--green);
+  font-weight: 700;
+}
+
+.p-nav-btn.red { 
+  color: var(--terra);
+}
+
+.p-nav-btn.red:hover { 
+  background: #fdf0ec;
+}
+
+.p-nav-btn i { 
+  width: 18px;
+}
+
+/* ─ PROFILE CONTENT ─ */
+.p-content { 
+  background: #fff;
+  border-radius: var(--r);
+  border: 1.5px solid var(--border);
+  padding: 32px;
+}
+
+.p-tab { 
+  display: none;
+}
+
+.p-tab.active { 
+  display: block;
+}
+
+.p-tab h2 { 
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--green);
+  margin-bottom: 24px;
+}
+
+/* ─ USER INFO ─ */
+.info-grid { 
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.info-field.full { 
+  grid-column: 1 / -1;
+}
+
+.info-field label { 
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--text-soft);
+  margin-bottom: 6px;
+}
+
+.info-val { 
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 11px 14px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+/* ─ ADDRESS SECTION ─ */
+.no-addr { 
+  text-align: center;
+  padding: 32px;
+  border: 2px dashed var(--border);
+  border-radius: var(--r);
+  color: var(--text-soft);
+}
+
+.no-addr i { 
+  font-size: 28px;
+  color: var(--green-light);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.no-addr p { 
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.add-addr-btn { 
+  background: var(--green);
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ─ ORDERS ─ */
+.order-card { 
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px;
+  margin-bottom: 14px;
+  transition: .2s;
+}
+
+.order-card:hover { 
+  box-shadow: var(--shadow);
+}
+
+.o-top { 
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+
+.o-top strong { 
+  display: block;
+  font-size: 14.5px;
+  margin-bottom: 2px;
+}
+
+.o-top small { 
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.status-pill { 
+  background: var(--green-pale);
+  color: var(--green-mid);
+  padding: 5px 13px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.o-bottom { 
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.o-bottom > div small { 
+  display: block;
+  font-size: 10.5px;
+  color: var(--text-soft);
+  margin-bottom: 2px;
+}
+
+.o-bottom > div strong { 
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.o-actions { 
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.o-view { 
+  background: none;
+  border: 1.5px solid var(--border);
+  padding: 7px 14px;
+  border-radius: 50px;
+  font-size: 12.5px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: .15s;
+}
+
+.o-view:hover { 
+  border-color: var(--green-light);
+  color: var(--green);
+}
+
+.o-reorder { 
+  background: var(--green);
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 50px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ─ NOT LOGGED ─ */
+.not-logged { 
+  text-align: center;
+  padding: 60px;
+}
+
+.not-logged i { 
+  font-size: 48px;
+  color: #ddd;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.not-logged h3 { 
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.not-logged p { 
+  color: var(--text-soft);
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+<script src="shared.js"></script>
+
+<div class="inner-wrap" id="profileWrap">
+  <!-- Rendered by JS -->
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  injectShell();
+  renderProfile();
+});
+
+function renderProfile() {
+  const user = getUser();
+  const wrap = document.getElementById('profileWrap');
+
+  if (!user) {
+    wrap.innerHTML = `
+      <div class="not-logged">
+        <i class="fas fa-user-circle"></i>
+        <h3>You're not logged in</h3>
+        <p>Please login or create an account to view your profile.</p>
+        <button class="empty-cta" onclick="openOverlay('loginModal')">Login Now</button>
+      </div>`;
+    return;
+  }
+
+  const initial = user.name[0].toUpperCase();
+
+  wrap.innerHTML = `
+    <div class="pg-hdr">
+      <a class="back-btn" href="index.html"><i class="fas fa-arrow-left"></i> Back</a>
+      <h1>My Profile</h1>
+    </div>
+    <div class="profile-layout">
+      <div class="profile-sidebar">
+        <div class="p-avatar">${initial}</div>
+        <h3>${user.name}</h3>
+        <small>${user.email}</small>
+        <nav class="p-nav">
+          <button class="p-nav-btn active" onclick="switchTab('info',this)"><i class="fas fa-user"></i> Profile Info</button>
+          <button class="p-nav-btn" onclick="switchTab('orders',this)"><i class="fas fa-box"></i> My Orders</button>
+          <button class="p-nav-btn" onclick="switchTab('wishlist',this)"><i class="fas fa-heart"></i> Wishlist</button>
+          <button class="p-nav-btn red" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </nav>
+      </div>
+      <div class="p-content">
+        <!-- INFO TAB -->
+        <div class="p-tab active" id="tab-info">
+          <h2>Personal Information</h2>
+          <div class="info-grid">
+            <div class="info-field"><label>Full Name</label><div class="info-val">${user.name}</div></div>
+            <div class="info-field"><label>Phone Number</label><div class="info-val">+91 1234567890</div></div>
+            <div class="info-field full"><label>Email Address</label><div class="info-val">${user.email}</div></div>
+          </div>
+          <h2>Saved Addresses</h2>
+          <div class="no-addr">
+            <i class="fas fa-map-marker-alt"></i>
+            <p>No saved addresses yet</p>
+            <button class="add-addr-btn" onclick="showToast('Address feature coming soon!')">+ Add Address</button>
+          </div>
+        </div>
+
+        <!-- ORDERS TAB -->
+        <div class="p-tab" id="tab-orders">
+          <h2>My Orders</h2>
+          <div class="order-card">
+            <div class="o-top">
+              <div><strong>Order #EM123456</strong><small><i class="fas fa-calendar"></i> 7 March 2026</small></div>
+              <span class="status-pill">✓ Delivered</span>
+            </div>
+            <div class="o-bottom">
+              <div><small>Total</small><strong>₹849</strong></div>
+              <div><small>Items</small><strong>5</strong></div>
+              <div class="o-actions">
+                <button class="o-view" onclick="showToast('Order details coming soon!')">View Details</button>
+                <button class="o-reorder" onclick="showToast('Items added to cart!')">Reorder</button>
+              </div>
+            </div>
+          </div>
+          <div class="order-card">
+            <div class="o-top">
+              <div><strong>Order #EM123457</strong><small><i class="fas fa-calendar"></i> 5 March 2026</small></div>
+              <span class="status-pill">✓ Delivered</span>
+            </div>
+            <div class="o-bottom">
+              <div><small>Total</small><strong>₹1,250</strong></div>
+              <div><small>Items</small><strong>8</strong></div>
+              <div class="o-actions">
+                <button class="o-view" onclick="showToast('Order details coming soon!')">View Details</button>
+                <button class="o-reorder" onclick="showToast('Items added to cart!')">Reorder</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WISHLIST TAB -->
+        <div class="p-tab" id="tab-wishlist">
+          <h2>My Wishlist</h2>
+          <div class="prods-grid" id="profileWishGrid"></div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Wishlist in profile
+  const ids = getWish();
+  const items = PRODUCTS.filter(p => ids.includes(p.id));
+  document.getElementById('profileWishGrid').innerHTML = items.length
+    ? items.map(p => cardHTML(p)).join('')
+    : `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-soft)"><i class="fas fa-heart" style="font-size:36px;color:#ddd;display:block;margin-bottom:12px"></i><p>No items saved yet. <a href="products.html">Browse products</a></p></div>`;
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.p-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.p-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${name}`).classList.add('active');
+  btn.classList.add('active');
+}
+
+function logoutUser() {
+  localStorage.removeItem('em_user');
+  showToast('Logged out successfully');
+  setTimeout(() => { window.location = 'index.html'; }, 800);
+}
+</script>
+</body>
+</html>

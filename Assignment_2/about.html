@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About Us – EasyMart</title>
+<link rel="stylesheet" href="style.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ─ ABOUT HERO ─ */
+.about-hero { 
+  background: var(--green);
+  border-radius: var(--r);
+  padding: 64px 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.about-hero h2 { 
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.about-hero h2 em { 
+  color: var(--green-light);
+  font-style: italic;
+}
+
+.about-hero p { 
+  color: rgba(255,255,255,.72);
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.about-hero img { 
+  width: 100%;
+  height: 320px;
+  border-radius: var(--r);
+  object-fit: cover;
+}
+
+/* ─ STATS ─ */
+.stats-row { 
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 60px;
+}
+
+.stat-card { 
+  background: #fff;
+  border-radius: var(--r);
+  border: 1.5px solid var(--border);
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.stat-card .num { 
+  font-family: 'Syne', sans-serif;
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+
+.stat-card .lbl { 
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+/* ─ VALUES ─ */
+.values-grid { 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 60px;
+}
+
+.val-card { 
+  background: #fff;
+  border-radius: var(--r);
+  border: 1.5px solid var(--border);
+  padding: 28px;
+  transition: .2s;
+}
+
+.val-card:hover { 
+  box-shadow: var(--shadow-lg);
+  border-color: var(--green-light);
+  transform: translateY(-3px);
+}
+
+.val-icon { 
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.vi-1 { background: var(--green-pale); }
+.vi-2 { background: #fdf0ec; }
+.vi-3 { background: #fdf6e3; }
+.vi-4 { background: #e8f0fd; }
+.vi-5 { background: #fce7f3; }
+.vi-6 { background: #f0fdf4; }
+
+.val-card h3 { 
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.val-card p { 
+  font-size: 13.5px;
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+
+/* ─ TEAM ─ */
+.team-sec h2 { 
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+
+.team-sec p { 
+  color: var(--text-soft);
+  margin-bottom: 32px;
+  font-size: 14px;
+}
+
+.team-grid { 
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.team-card { 
+  background: #fff;
+  border-radius: var(--r);
+  border: 1.5px solid var(--border);
+  padding: 24px;
+  text-align: center;
+  transition: .2s;
+}
+
+.team-card:hover { 
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.t-avatar { 
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  object-fit: cover;
+}
+
+.team-card h4 { 
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.team-card small { 
+  font-size: 12px;
+  color: var(--text-soft);
+}
+</style>
+</head>
+<body>
+<script src="shared.js"></script>
+
+<div class="inner-wrap">
+  <div class="pg-hdr">
+    <a class="back-btn" href="index.html"><i class="fas fa-arrow-left"></i> Back</a>
+    <h1>About EasyMart</h1>
+  </div>
+
+  <!-- ABOUT HERO -->
+  <div class="about-hero">
+    <div>
+      <h2>We deliver fresh groceries in <em>10 minutes</em></h2>
+      <p>EasyMart started with a simple idea: what if getting groceries was as easy as making a phone call? We've been delivering freshness to Indian homes since 2022 — and we're just getting started.</p>
+      <a class="btn-primary" href="products.html" style="display:inline-flex"><i class="fas fa-shopping-cart"></i> Shop Now</a>
+    </div>
+    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=85" alt="About EasyMart"/>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card"><div class="num">50K+</div><div class="lbl">Happy Customers</div></div>
+    <div class="stat-card"><div class="num">10 min</div><div class="lbl">Average Delivery</div></div>
+    <div class="stat-card"><div class="num">5000+</div><div class="lbl">Products Available</div></div>
+    <div class="stat-card"><div class="num">15+</div><div class="lbl">Cities Covered</div></div>
+  </div>
+
+  <!-- VALUES -->
+  <div class="sec-hdr" style="margin-bottom:24px">
+    <div><h2 style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--green)">Why EasyMart?</h2><p style="color:var(--text-soft);font-size:13px;margin-top:4px">What makes us different</p></div>
+  </div>
+  <div class="values-grid">
+    <div class="val-card"><div class="val-icon vi-1">⚡</div><h3>10-Minute Delivery</h3><p>We've built a dark store network so your order reaches you before you even finish your first cup of tea.</p></div>
+    <div class="val-card"><div class="val-icon vi-2">🌿</div><h3>Farm Fresh Quality</h3><p>We source directly from farmers and trusted suppliers to ensure maximum freshness and nutritional value.</p></div>
+    <div class="val-card"><div class="val-icon vi-3">💰</div><h3>Best Prices</h3><p>We negotiate hard with suppliers so you don't have to. Our prices are competitive every single day.</p></div>
+    <div class="val-card"><div class="val-icon vi-4">🔒</div><h3>100% Secure Payments</h3><p>UPI, cards, wallets — all transactions are encrypted and safe. Your financial data never leaves your device.</p></div>
+    <div class="val-card"><div class="val-icon vi-5">🤝</div><h3>Dedicated Support</h3><p>Our support team is available 7 days a week to help with any issue, big or small.</p></div>
+    <div class="val-card"><div class="val-icon vi-6">🔄</div><h3>Easy Returns</h3><p>Not satisfied? Our hassle-free return policy means you get your money back, no questions asked.</p></div>
+  </div>
+
+  <!-- TEAM -->
+  <div class="team-sec" style="margin-top:48px">
+    <h2>Meet Our Team</h2>
+    <p>The people building EasyMart</p>
+    <div class="team-grid">
+      <div class="team-card"><img class="t-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt=""/><h4>Arjun Mehta</h4><small>Co-Founder & CEO</small></div>
+      <div class="team-card"><img class="t-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt=""/><h4>Priya Singh</h4><small>Co-Founder & COO</small></div>
+      <div class="team-card"><img class="t-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80" alt=""/><h4>Rohan Verma</h4><small>Head of Technology</small></div>
+      <div class="team-card"><img class="t-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt=""/><h4>Sneha Patel</h4><small>Head of Operations</small></div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => { injectShell(); });
+</script>
+</body>
+</html>
